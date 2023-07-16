@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--JS-->
+    
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+    <!--Css-->
+    <link rel="stylesheet" href="style.css">
+    <!-- Alpinejs -->
+    
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+</head>
+<body x-data="{ countSmall: 0, countMedium: 0, countLarge: 0, showError: false, show: false,showMessage :false,showCheckout:false }">
+    <div class="container">
+        <div class="header" >
+            <h3 class="text-center">Perfect Pizza</h3>
+        </div>
+            
+            <div class="content" >
+                
+                <div class="pizza small_pizza">
+                    <h3>Small Pizza</h3>
+                    <img src="C:\Users\Home\Downloads\pizza.png" alt="Trulli" width="100" height="">
+                    <h1>R49.99</h1>
+                    <div>
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+                    </div>
+                    <div class="col text-center">
+                        <button class="btn btn-primary btn default" @click="countSmall+=49">Order</button>
+                    </div>
+                </div>
+
+                <div class="pizza medium ">
+                    <h3>Medium Pizza</h3>
+                    <img src="C:\Users\Home\Downloads\pizza.png" alt="Trulli" width="150" height="">
+                    <h1>R89.50</h1>
+                    <div>
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+                    </div>
+                    <div class="col text-center" >
+                        <button class="btn btn-primary btn default" @click="countMedium+=89.50">Order</button>
+                    </div>
+                </div>
+
+                <div class="pizza Large">
+                    <h3>Large Pizza</h3>
+                    <img src="C:\Users\Home\Downloads\pizza.png" alt="Trulli" width="200" height="">
+                    <h1>R120.00</h1>
+                    <div>
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+                    </div>
+                    <div class="col text-center" >
+                        <button class="btn btn-primary btn default" @click="countLarge+=120.00">Order</button>
+                    </div>
+                
+                </div>
+                <br/>
+            
+            </div>
+            <div class="text-center row col-md-*">
+                <!--wrapper-->
+                <div>
+                   <h1 class="shoppingC text-center">Shopping Cart</h1>
+                   <div >
+                       <label  ><h4>Small</h4></label>:
+                       <button @click="countSmall+=49">++</button>
+                       <button @click="if(countSmall > 0){
+                         countSmall-=49
+                       }">--</button>
+                        <!--innerHtml-->
+                        <label><p x-text="countSmall"></p></label>
+                    </div>
+                 <br/>
+                 <div>
+                    <label> <h4>Medium</h4></label>:
+                    <button @click="countMedium+=89.50">+</button>
+                    <button @click="if(countMedium > 0){
+                     countMedium-=89.50
+                    }">--</button>
+                    <label><p x-text="countMedium"></p></label>
+                 </div>
+                 <br/>
+                 <div>
+                    <label> <h4>Large</h4></label>:
+                    <button @click="countLarge+=120.00">+</button>
+                    <button @click="if (countLarge > 0) {
+                     countLarge-=120.00
+                    }">--</button>
+                    <label><p x-text="countLarge"></p></label><!--innerHtml-->
+                 </div>
+                 <br/>
+                 <div>
+                     <label><h4>Total:</h4></label>
+                     <label><p x-text="countSmall + countMedium + countLarge; if(countSmall + countMedium + countLarge == 0){
+                        showCheckout = false;
+                     }else{showCheckout = true};"></p></label>
+                 </div>
+                 
+                 <p x-show="showError" class="p-3 mb-2 bg-warning text-dark"> Sorry - that is not enough money!</p>
+                 <p x-show="showMessage" class="p-3 mb-2 bg-success text-white">Enjoy your pizza!</p>
+                
+                
+                 <div>
+                    <label x-show="show" >Payment Amount:
+                        <input x-show="show" type="text" id="input" x-ref="input" /></br>
+                        <button class="btn btn-info" @click="if(countSmall + countMedium + countLarge > $refs.input.value ) {
+                             showError = true;
+                             setTimeout(function(){ showError = false}, 2000);
+                             
+                            } else {
+                                showMessage = true;
+                                setTimeout(function(){ showMessage = false}, 2000)
+                            }">Payment</button>
+                    </label>
+                    </br>
+                    <button class="btn btn-info" x-show="showCheckout" @click="show = !show">Checkout</button>
+                    
+                 </div>
+                </div>
+                  
+            </div> 
+            
+        
+        <div class="footer" >
+        
+
+            <h2>Contact details</h2>
+
+            <div>
+                contact us at : 0717187709
+                info@pizza.co.za
+            </div>
+            
+        </div>
+    </div> 
+</body>
+</html>
